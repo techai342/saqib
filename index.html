@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saqib | Premium Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --ios-blue: #007AFF;
+            --ios-bg: #F2F2F7;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--ios-bg);
+            color: #1d1d1f;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo-text {
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(135deg, #1d1d1f 0%, #434343 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: saturate(180%) blur(25px);
+            -webkit-backdrop-filter: saturate(180%) blur(25px);
+            border-bottom: 0.5px solid rgba(0,0,0,0.08);
+        }
+
+        .social-link {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            color: white !important;
+        }
+
+        .social-link.whatsapp { color: #25D366; background: white; }
+        .social-link.whatsapp:hover { background: #25D366; }
+        .social-link.tiktok:hover { background: #000000; }
+        .social-link.instagram:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .social-link.facebook:hover { background: #1877F2; }
+
+        .about-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+            border-radius: 40px;
+        }
+
+        .profile-orbit {
+            position: relative;
+            padding: 10px;
+            border: 2px dashed var(--ios-blue);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .profile-img-container { animation: counter-rotate 20s linear infinite; }
+        @keyframes counter-rotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+
+        .gallery-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .gallery-item.show { opacity: 1; transform: translateY(0); }
+
+        .img-wrapper {
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            border-radius: 24px;
+            position: relative;
+            background: #e5e5e5;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .text-gradient {
+            background: linear-gradient(to right, #007AFF, #5856D6, #FF2D55);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #lightbox, .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 28px;
+            padding: 1.5rem;
+            max-width: 440px;
+            width: 85%;
+            color: white;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active { display: flex; }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .btn-ios {
+            background: var(--ios-blue);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            animation: fadeInScale 0.4s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+        .download-btn {
+            background: var(--ios-blue);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.4);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .download-btn:active { transform: scale(0.95); }
+
+        @media (max-width: 640px) {
+            .grid-cols-2 { gap: 14px; }
+            section { padding-top: 60px; }
+            .about-card { border-radius: 30px; padding: 1.5rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-glass fixed top-0 w-full z-[100] py-3 px-4 md:px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="logo-text text-2xl md:text-3xl font-bold italic tracking-wide">Muhammad Saqib</span>
+            </div>
+            
+            <div class="flex items-center gap-3 md:gap-4">
+                <a href="https://wa.me/923478936242?text=Hi%20Saqib" target="_blank" class="social-link whatsapp"><i data-lucide="message-circle" size="22"></i></a>
+                <a href="https://www.tiktok.com/@mr_saqib_242?_r=1&_t=ZS-937eHtLQKBx" target="_blank" class="social-link tiktok text-black"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg></a>
+                <a href="https://www.instagram.com/mr_saqib242?igsh=MXVzdnN3aXRzc2U5Zg==" target="_blank" class="social-link instagram text-pink-500"><i data-lucide="instagram" size="20"></i></a>
+                <a href="https://web.facebook.com/muhammad.saqib.718278?_rdc=1&_rdr" target="_blank" class="social-link facebook text-blue-600"><i data-lucide="facebook" size="20"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="max-w-6xl mx-auto px-4 mt-8">
+        <div class="about-card p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div class="profile-orbit">
+                <div class="profile-img-container w-44 h-44 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-white shadow-xl">
+                    <img src="https://ik.imagekit.io/shaban/SHABAN-1768573425069_nIPVZQOaT.jpg" alt="Saqib" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <div class="flex-1 text-center md:text-left">
+                <span class="px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-bold tracking-widest uppercase">Verified Profile</span>
+                <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter mt-4 mb-2 text-gradient uppercase">SAQIB</h2>
+                <p class="text-xl md:text-2xl font-serif italic text-gray-500 mb-6">Creative Visual Artist</p>
+                
+                <div class="grid grid-cols-2 gap-y-4 gap-x-4 mb-4 max-w-md mx-auto md:mx-0">
+                    <div class="flex flex-col"><span class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Age</span><span class="font-bold text-lg">17 Years</span></div>
+                    <div class="flex flex-col"><span class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Location</span><span class="font-bold text-lg">Pakistan, FSD</span></div>
+                    <div class="flex flex-col col-span-2"><span class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Phone</span><span class="font-bold text-xl text-blue-600">0347-8936242</span></div>
+                </div>
+
+                <button onclick="openSkillModal()" class="btn-ios mb-6 shadow-md hover:shadow-lg">
+                    <i data-lucide="sparkles" size="16"></i> More About Saqib
+                </button>
+
+                <div class="relative py-4 px-6 bg-white/50 rounded-2xl border border-white shadow-inner">
+                    <i data-lucide="quote" class="absolute -top-2 -left-2 text-blue-200" size="30"></i>
+                    <p class="text-gray-700 leading-relaxed text-sm font-medium italic">
+                        "Success is not just what you accomplish in your life, it's about what you inspire others to do."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="skillModal" class="modal-overlay" onclick="closeSkillModal(event)">
+        <div class="modal-content text-center" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold flex items-center gap-2"><i data-lucide="rocket" class="text-blue-400" size="20"></i> Skills & Interests</h3>
+                <button onclick="closeSkillModal(event)" class="text-white/40 hover:text-white"><i data-lucide="circle-x" size="22"></i></button>
+            </div>
+            <p class="text-white/80 text-xs mb-4 text-left leading-relaxed">I am a passionate learner interested in modern tech & creativity. I love building digital solutions.</p>
+            <div class="grid grid-cols-2 gap-2 mb-6">
+                <div class="skill-tag">AI Enthusiast</div><div class="skill-tag">AI Developer</div>
+                <div class="skill-tag">Web Developer</div><div class="skill-tag">Software Dev</div>
+                <div class="skill-tag">Video Editor</div><div class="skill-tag">Graphic Design</div>
+                <div class="skill-tag">Digital Marketing</div><div class="skill-tag">Problem Solver</div>
+            </div>
+            <a href="https://techai.zone.id/" target="_blank" class="w-full py-3 bg-white text-black text-sm font-bold rounded-xl flex items-center justify-center gap-2 shadow-xl hover:bg-blue-50">
+                <i data-lucide="globe" size="18"></i> Visit My Website
+            </a>
+        </div>
+    </div>
+
+    <section id="gallery" class="max-w-6xl mx-auto px-4 pb-24 mt-12">
+        <div class="flex items-center justify-between mb-8 px-2">
+            <div><h3 class="text-3xl font-bold tracking-tight">Recent Work</h3><div class="h-1.5 w-12 bg-blue-600 rounded-full mt-2"></div></div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-tighter flex items-center gap-2"><i data-lucide="layout-grid" size="14"></i> Explore</div>
+        </div>
+        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
+    </section>
+
+    <div id="lightbox">
+        <div class="absolute top-6 right-6 z-[210] flex gap-3">
+            <button onclick="closeLightbox()" class="nav-btn"><i data-lucide="x"></i></button>
+        </div>
+        <button onclick="prevImage(event)" class="nav-btn absolute left-4 z-[210]"><i data-lucide="chevron-left"></i></button>
+        <div class="relative flex flex-col items-center justify-center w-full h-full p-4 overflow-hidden">
+            <img id="lightbox-img" class="rounded-2xl shadow-2xl transition-all duration-500 max-w-full max-h-[75vh] object-contain" src="">
+            <!-- Enhanced Download Button -->
+            <button onclick="forceDownload()" class="download-btn">
+                <i data-lucide="download" size="20"></i>
+                <span>Download Photo</span>
+            </button>
+        </div>
+        <button onclick="nextImage(event)" class="nav-btn absolute right-4 z-[210]"><i data-lucide="chevron-right"></i></button>
+    </div>
+
+    <script>
+      const images = [
+    "https://ik.imagekit.io/shaban/SHABAN-1768573425069_nIPVZQOaT.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573550507_ArSSmUT0tW.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573642529_UEEpMXFEkV.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573647809_L4RIsxMgI.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573652854__LqIeAU47.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573659591_abaSpAF-y.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573669146_5z2ap9EbK.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573674849_RvEzQQfNI.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573679202_aZrkl8hRt.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573689483_NnwuSUKqm.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573697274_CP3034fDP.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768573705488_jYpVaM2u0.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575063823_VKv0h9E-k.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575091370_Eff9-yBbl.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575128883_e-W-AMj3q.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575146572_S9cSoOYEd.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575153097_cNAjcwYjl.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575206893_2JJlY1Wm0.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575218262_6SqMS7ijo.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575233008_FM9BCgwYX.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575235727_gOIsiMEMW.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575240340_5tz9dWXNo.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575245369_aFwAR5G1A.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575256985_nCso21_yg.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575261320_xDKXsGy9j.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575265565_APidCqJd2.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575273776_12t6fSWUNF.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575281292_KWCWQm1tp.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575289386_Ohy6x5nR7.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575387302_iPzMxeVnf.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575391677_bsAlvqZL9.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575400809_AMhNzr8n3.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575407874_LewPrAdHC.jpg",
+    "https://ik.imagekit.io/shaban/SHABAN-1768575415857_lNqkpn9Iz.jpg"
+];
+
+        let currentIndex = 0;
+        const grid = document.getElementById('gallery-grid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const skillModal = document.getElementById('skillModal');
+
+        lucide.createIcons();
+
+        images.forEach((url, index) => {
+            const container = document.createElement('div');
+            container.className = 'gallery-item cursor-pointer';
+            container.innerHTML = `<div class="img-wrapper" onclick="openLightbox(${index})"><img src="${url}" alt="Saqib work" loading="lazy"></div>`;
+            grid.appendChild(container);
+            setTimeout(() => container.classList.add('show'), 100 + (index % 12) * 50);
+        });
+
+        function openSkillModal() { skillModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeSkillModal() { skillModal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            lightbox.style.display = 'flex';
+        }
+
+        function updateLightbox() {
+            lightboxImg.style.opacity = '0';
+            setTimeout(() => {
+                lightboxImg.src = images[currentIndex];
+                lightboxImg.onload = () => { lightboxImg.style.opacity = '1'; };
+            }, 100);
+        }
+
+        // Forced Download Logic for Mobile and Desktop
+        async function forceDownload() {
+            const imageUrl = images[currentIndex];
+            const fileName = `Saqib_Image_${currentIndex + 1}.jpg`;
+
+            try {
+                // Fetch the image as a blob
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                
+                // Create a local URL for the blob
+                const url = window.URL.createObjectURL(blob);
+                
+                // Create a temporary anchor element
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName; // Force download
+                
+                // For mobile browsers, we append it to the body
+                document.body.appendChild(link);
+                link.click();
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+            } catch (error) {
+                // If blob fetch fails (CORS), open in new tab
+                window.open(imageUrl, '_blank');
+            }
+        }
+
+        function nextImage(e) { e.stopPropagation(); currentIndex = (currentIndex + 1) % images.length; updateLightbox(); }
+        function prevImage(e) { e.stopPropagation(); currentIndex = (currentIndex - 1 + images.length) % images.length; updateLightbox(); }
+        function closeLightbox() { lightbox.style.display = 'none'; }
+        
+        lightbox.onclick = (e) => { if(e.target === lightbox) closeLightbox(); };
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextImage(e);
+                if (e.key === 'ArrowLeft') prevImage(e);
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
