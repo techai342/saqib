@@ -111,6 +111,17 @@ export default function App() {
   ]);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  // Device detection and redirection
+  useEffect(() => {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSmallScreen = window.innerWidth <= 768;
+    
+    // If it's not a mobile device and screen is large, redirect to desktop site
+    if (!isMobile && !isSmallScreen) {
+      window.location.replace('https://mrsaqib.vercel.app/');
+    }
+  }, []);
+
   // Scroll to bottom of chat when messages change
   useEffect(() => {
     if (chatEndRef.current) {
