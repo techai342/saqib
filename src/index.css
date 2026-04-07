@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-cursive: "Dancing Script", cursive;
+}
+
+/* Custom RGB Animation */
+@keyframes rotateRGB {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rgb-card-container {
+  position: relative;
+  overflow: hidden;
+  padding: 4px;
+  border-radius: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.rgb-card-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+      #ff0000, #ff7300, #fffb00, #48ff00, 
+      #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
+  );
+  animation: rotateRGB 4s linear infinite;
+  z-index: 0;
+}
+
+.rgb-inner-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: calc(2rem - 4px);
+  width: 100%;
+  height: 100%;
+}
+
+/* Profile Orbit Animations */
+@keyframes rotateOrbit { 
+  from { transform: rotate(0deg); } 
+  to { transform: rotate(360deg); } 
+}
+
+@keyframes counterRotate { 
+  from { transform: rotate(0deg); } 
+  to { transform: rotate(-360deg); } 
+}
+
+.profile-orbit {
+  position: relative;
+  padding: 10px;
+  border: 2px dashed #007AFF;
+  border-radius: 50%;
+  animation: rotateOrbit 20s linear infinite;
+}
+
+.profile-img-container { 
+  animation: counterRotate 20s linear infinite; 
+}
+
+/* Rambo Card & Text Animations */
+.rambo-text {
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-move 4s linear infinite;
+}
+
+.rambo-card {
+  position: relative;
+  background: #fff;
+  border-radius: 1.25rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.rambo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 3px; 
+  border-radius: 1.25rem;
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradient-move 4s linear infinite;
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
