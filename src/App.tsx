@@ -336,11 +336,22 @@ export default function App() {
           <div className="rgb-card-container">
             <div className="rgb-inner-card p-6 space-y-8">
                <div>
-                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">About Me</h2>
+                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Who is Saqib242?</h2>
               <div className="h-1.5 w-12 bg-purple-600 mt-1 rounded-full mb-4"></div>
-              <p className="text-gray-600 leading-relaxed text-sm">
-                I am a passionate and motivated learner with a strong interest in modern technology and creativity. I enjoy exploring new tools, building digital solutions, and creating engaging visual content. I believe in continuous learning and using technology to create meaningful digital experiences.
-              </p>
+              <div className="space-y-4 text-gray-600 leading-relaxed text-sm">
+                <p>
+                  <strong className="text-gray-900">Saqib242</strong> is the online identity of <strong className="text-gray-900">Muhammad Saqib</strong>, a passionate <strong className="text-gray-900">creative developer, visual artist, and content creator</strong> from Pakistan. Known for his unique style and modern digital designs, Saqib242 has built a strong presence in the world of web development and visual creativity.
+                </p>
+                <p>
+                  At just 17 years old, he has already developed multiple websites and continues to improve his skills. His goal is to combine <strong className="text-gray-900">technology and creativity</strong> to deliver visually stunning and functional digital experiences.
+                </p>
+                <p>
+                  <strong className="text-gray-900">Mission & Vision:</strong> Saqib242 aims to become a top-level creative developer and build a strong digital identity that stands out globally. His mission is to help individuals and brands grow online through creative design and smart development.
+                </p>
+                <p className="italic text-gray-500 border-l-2 border-purple-400 pl-3 mt-4">
+                  "Saqib242 is not just a name — it’s a growing brand. With dedication, creativity, and continuous learning, Muhammad Saqib is building his path toward success in the digital world."
+                </p>
+              </div>
            </div>
 
            <div>
@@ -365,10 +376,10 @@ export default function App() {
            <div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">My Website</h3>
               <div className="space-y-3">
-                <a href="https://techai.zone.id/" target="_blank" rel="noreferrer" className="flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-blue-200 transition-colors group">
+                <a href="https://saqib.zone.id/" target="_blank" rel="noreferrer" className="flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-blue-200 transition-colors group">
                   <div>
                     <p className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">Main Website</p>
-                    <p className="text-xs text-gray-500">techai.zone.id</p>
+                    <p className="text-xs text-gray-500">saqib.zone.id</p>
                   </div>
                   <ExternalLink size={18} className="text-gray-400 group-hover:text-blue-500 transition-colors" />
                 </a>
