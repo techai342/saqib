@@ -24,7 +24,7 @@ const projects = [
 ];
 
 const profile = {
-  name: "Muhammad Saqib",
+  name: "Muhammad Saqib (Mr Saqib)",
   shortName: "SAQIB",
   title: "Creative Visual Artist",
   age: "17 Years",
@@ -336,11 +336,11 @@ export default function App() {
           <div className="rgb-card-container">
             <div className="rgb-inner-card p-6 space-y-8">
                <div>
-                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Who is Saqib242?</h2>
+                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Who is Saqib (mrsaqib242)?</h2>
               <div className="h-1.5 w-12 bg-purple-600 mt-1 rounded-full mb-4"></div>
               <div className="space-y-4 text-gray-600 leading-relaxed text-sm">
                 <p>
-                  <strong className="text-gray-900">Saqib242</strong> is the online identity of <strong className="text-gray-900">Muhammad Saqib</strong>, a passionate <strong className="text-gray-900">creative developer, visual artist, and content creator</strong> from Pakistan. Known for his unique style and modern digital designs, Saqib242 has built a strong presence in the world of web development and visual creativity.
+                  Looking for <strong className="text-gray-900">Mr Saqib</strong> or <strong className="text-gray-900">mrsaqib242</strong>? <strong className="text-gray-900">Saqib242</strong> is the online identity of <strong className="text-gray-900">Muhammad Saqib</strong>, a passionate <strong className="text-gray-900">creative developer, visual artist, and content creator</strong> from Pakistan. Known for his unique style and modern digital designs, Saqib242 has built a strong presence in the world of web development and visual creativity.
                 </p>
                 <p>
                   At just 17 years old, he has already developed multiple websites and continues to improve his skills. His goal is to combine <strong className="text-gray-900">technology and creativity</strong> to deliver visually stunning and functional digital experiences.
